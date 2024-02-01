@@ -1,13 +1,18 @@
 package com.example.demo.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.repository.modelo.Estudiante;
@@ -27,13 +32,19 @@ public class EstudianteControllerRestFul {
 	// Metodos= Capacidades
 	//GET
 	
-	@GetMapping(path = "/buscar")
-	public Estudiante buscar() {
-		return this.estudianteService.buscar(3);
+	@GetMapping(path = "/buscar/{id}")
+	public Estudiante buscar(@PathVariable Integer id) {
+		return this.estudianteService.buscar(id);
 	}
 	
 	//http://localhost:8080/API/v1.0/Matricula/estudiantes/buscar
 	
+	@GetMapping(path = "/buscartodos")
+	public List<Estudiante> buscartodos(@RequestParam String genero){
+		return this.estudianteService.buscartodos(genero);
+	}
+	
+	//http://localhost:8080/API/v1.0/Matricula/estudiantes/buscartodos?genero=Masculina
 	
 	@PostMapping(path = "/guardar")
 	public void guardar(@RequestBody Estudiante estudiante) {
@@ -52,8 +63,8 @@ public class EstudianteControllerRestFul {
 		this.estudianteService.actualizarParcial(estudiante.getApellido(), estudiante.getNombre(), estudiante.getId());
 	}
 	
-	@DeleteMapping(path = "/borrar")
-	public void borrar(){
-		this.estudianteService.borrar(1);
+	@DeleteMapping(path = "/borrar/{id}")
+	public void borrar(@PathVariable Integer id){
+		this.estudianteService.borrar(id);
 	}
 }
