@@ -32,38 +32,41 @@ public class EstudianteControllerRestFul {
 	// Metodos= Capacidades
 	//GET
 	
-	@GetMapping(path = "/buscar/{id}")
+	@GetMapping(path = "/{id}")
 	public Estudiante buscar(@PathVariable Integer id) {
 		return this.estudianteService.buscar(id);
 	}
 	
 	//http://localhost:8080/API/v1.0/Matricula/estudiantes/buscar
+	//MMR
+	//http://localhost:8080/API/v1.0/Matricula/estudiantes/1
 	
-	@GetMapping(path = "/buscartodos")
-	public List<Estudiante> buscartodos(@RequestParam String genero){
+	@GetMapping
+	public List<Estudiante> buscartodos(@RequestParam(required = false, defaultValue = "M") String genero){
 		return this.estudianteService.buscartodos(genero);
 	}
 	
 	//http://localhost:8080/API/v1.0/Matricula/estudiantes/buscartodos?genero=Masculina
 	
-	@PostMapping(path = "/guardar")
+	@PostMapping
 	public void guardar(@RequestBody Estudiante estudiante) {
 		this.estudianteService.guardar(estudiante);
 	}
 	
 	//http://localhost:8080/API/v1.0/Matricula/estudiantes/guardar
 	
-	@PutMapping(path = "/actualizar")
-	public void actualizar(@RequestBody Estudiante estudiante) {
+	@PutMapping(path = "/{id}")
+	public void actualizar(@RequestBody Estudiante estudiante,@PathVariable Integer id) {
+		estudiante.setId(id);
 		this.estudianteService.actualizar(estudiante);
 	}
 	
-	@PatchMapping(path = "/actualizarParcial")
-	public void actualizarParcial(@RequestBody Estudiante estudiante) {
-		this.estudianteService.actualizarParcial(estudiante.getApellido(), estudiante.getNombre(), estudiante.getId());
+	@PatchMapping(path = "/{id}")
+	public void actualizarParcial(@RequestBody Estudiante estudiante,@PathVariable Integer id) {
+		this.estudianteService.actualizarParcial(estudiante.getApellido(), estudiante.getNombre(), id);
 	}
 	
-	@DeleteMapping(path = "/borrar/{id}")
+	@DeleteMapping(path = "/{id}")
 	public void borrar(@PathVariable Integer id){
 		this.estudianteService.borrar(id);
 	}
