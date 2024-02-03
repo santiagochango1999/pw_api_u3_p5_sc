@@ -34,6 +34,8 @@ public class EstudianteControllerRestFul {
 	
 	@GetMapping(path = "/{id}")
 	public Estudiante buscar(@PathVariable Integer id) {
+		System.out.println(this.estudianteService.buscar(id));
+
 		return this.estudianteService.buscar(id);
 	}
 	
