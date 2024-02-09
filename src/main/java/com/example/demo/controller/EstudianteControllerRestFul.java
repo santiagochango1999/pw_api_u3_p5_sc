@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import java.util.List;
 
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.repository.modelo.Estudiante;
 import com.example.demo.service.IEstudianteService;
+import com.example.demo.service.IMateriService;
+import com.example.demo.service.to.EstudianteTO;
+import com.example.demo.service.to.MateriaTo;
 
 //API: por el proyecto java
 //API: viene determinado por un proyecto y puede tener muchos servicios y muchas capacidades
@@ -31,6 +35,9 @@ public class EstudianteControllerRestFul {
 	@Autowired
 	private IEstudianteService estudianteService;
 
+	@Autowired
+	private IMateriService materiService;
+
 	// Metodos= Capacidades
 	// GET
 
@@ -41,7 +48,8 @@ public class EstudianteControllerRestFul {
 		// 240: Recurso Estudiante encontrado Satisfactoriamente{
 		// esto se lo especifica en un contrato de la API
 		// se lo puede realizar de dos maneras
-		// 1.-mediante un documento o pdf donde yo especifico la URL de mi API donde que capacidades tiene y que catalogo de respuestas tiene
+		// 1.-mediante un documento o pdf donde yo especifico la URL de mi API donde que
+		// capacidades tiene y que catalogo de respuestas tiene
 		// 2.-mediante una herramienta ( SWAGGER.IO = NOS PERMITE DOCUMENTAR A UNA API )
 		Estudiante estu = this.estudianteService.buscar(id);
 		return ResponseEntity.status(241).body(estu);
@@ -51,16 +59,25 @@ public class EstudianteControllerRestFul {
 	// MMR
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes/1
 
-	@GetMapping(produces = MediaType.APPLICATION_XML_VALUE)
-	public ResponseEntity<List<Estudiante>>  buscartodos(@RequestParam(required = false, defaultValue = "M") String genero) {
+	@GetMapping(path = "/tmp", produces = MediaType.APPLICATION_XML_VALUE)
+	public ResponseEntity<List<Estudiante>> buscartodos(
+			@RequestParam(required = false, defaultValue = "M") String genero) {
 		List<Estudiante> lista = this.estudianteService.buscartodos(genero);
-		HttpHeaders cabeceras= new HttpHeaders();
-		cabeceras.add("mensaje 242","lista consultada de manera satisfactoria");
-		
-		return new ResponseEntity<>(lista,cabeceras,242);
+		HttpHeaders cabeceras = new HttpHeaders();
+		cabeceras.add("mensaje 242", "lista consultada de manera satisfactoria");
+
+		return new ResponseEntity<>(lista, cabeceras, 242);
 	}
 
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes/buscartodos?genero=Masculina
+
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<EstudianteTO>> buscartodosHateoas(
+			@RequestParam(required = false, defaultValue = "M") String genero) {
+		List<EstudianteTO> lista = this.estudianteService.buscartodosTo();
+
+		return ResponseEntity.status(HttpStatus.OK).body(lista);
+	}
 
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void guardar(@RequestBody Estudiante estudiante) {
@@ -83,5 +100,12 @@ public class EstudianteControllerRestFul {
 	@DeleteMapping(path = "/{id}")
 	public void borrar(@PathVariable Integer id) {
 		this.estudianteService.borrar(id);
+	}
+	// ----------------------------------------------------------------
+
+	@GetMapping(path = "/{id}/materias", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<MateriaTo>> ConsultarMateriaPorId(@PathVariable Integer id) {
+		List<MateriaTo> lista = this.materiService.buscarPorIdEstudiante(id);
+		return ResponseEntity.status(HttpStatus.OK).body(lista);
 	}
 }
