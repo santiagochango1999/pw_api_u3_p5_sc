@@ -24,6 +24,7 @@ public class MateriaRepositoryImp implements IMateriaRepository {
 		TypedQuery<Materia> myquery = this.entityManager
 				.createQuery("SELECT m FROM Materia m WHERE m.estudiante.id=:id", Materia.class);
 		myquery.setParameter("id", id);
+		System.out.println(myquery.getResultList());
 		return myquery.getResultList();
 	}
 
