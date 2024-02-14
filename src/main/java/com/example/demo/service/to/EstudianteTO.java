@@ -17,6 +17,11 @@ public class EstudianteTO extends RepresentationModel<EstudianteTO> implements S
 	private String apellido;
 	private String genero;
 	private LocalDateTime fechaNacimiento;
+	private String canton;
+	private String ciudad;
+	private String pais;
+	private String tiposSangre;
+	private String tamaño;
 
 	// set y get
 	public Integer getId() {
@@ -57,6 +62,46 @@ public class EstudianteTO extends RepresentationModel<EstudianteTO> implements S
 
 	public void setFechaNacimiento(LocalDateTime fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
+	}
+
+	public String getCanton() {
+		return canton;
+	}
+
+	public void setCanton(String canton) {
+		this.canton = canton;
+	}
+
+	public String getCiudad() {
+		return ciudad;
+	}
+
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad;
+	}
+
+	public String getPais() {
+		return pais;
+	}
+
+	public void setPais(String pais) {
+		this.pais = pais;
+	}
+
+	public String getTiposSangre() {
+		return tiposSangre;
+	}
+
+	public void setTiposSangre(String tiposSangre) {
+		this.tiposSangre = tiposSangre;
+	}
+
+	public String getTamaño() {
+		return tamaño;
+	}
+
+	public void setTamaño(String tamaño) {
+		this.tamaño = tamaño;
 	}
 
 }

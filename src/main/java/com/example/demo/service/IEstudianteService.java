@@ -3,6 +3,7 @@ package com.example.demo.service;
 import java.util.List;
 
 import com.example.demo.repository.modelo.Estudiante;
+import com.example.demo.service.to.EstudianteLIgeroTO;
 import com.example.demo.service.to.EstudianteTO;
 
 public interface IEstudianteService {
@@ -15,6 +16,8 @@ public interface IEstudianteService {
 	public Estudiante buscar(Integer id);
 
 	public EstudianteTO buscarTO(Integer id);
+
+	public EstudianteLIgeroTO buscarToLigero(Integer id);
 
 	public List<Estudiante> buscartodos(String genero);
 

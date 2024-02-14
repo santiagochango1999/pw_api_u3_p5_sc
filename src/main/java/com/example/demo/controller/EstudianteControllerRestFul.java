@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.repository.modelo.Estudiante;
 import com.example.demo.service.IEstudianteService;
 import com.example.demo.service.IMateriService;
+import com.example.demo.service.to.EstudianteLIgeroTO;
 import com.example.demo.service.to.EstudianteTO;
 import com.example.demo.service.to.MateriaTo;
 
@@ -45,7 +46,7 @@ public class EstudianteControllerRestFul {
 	// Metodos= Capacidades
 	// GET
 
-	@GetMapping(path = "/{id}", produces = "application/json")
+	@GetMapping(path = "/{id}/completo", produces = "application/json")
 	public ResponseEntity<EstudianteTO> buscar(@PathVariable Integer id) {
 		System.out.println(this.estudianteService.buscarTO(id));
 		// 240: grupo satisfactoria
@@ -65,6 +66,18 @@ public class EstudianteControllerRestFul {
 		return ResponseEntity.status(241).body(estu);
 	}
 
+	// ---------------------*****************
+	@GetMapping(path = "/{id}", produces = "application/json")
+	public ResponseEntity<EstudianteLIgeroTO> buscarLigeroTo(@PathVariable Integer id) {
+
+		EstudianteLIgeroTO estu = this.estudianteService.buscarToLigero(id);
+		Link link = linkTo(methodOn(EstudianteControllerRestFul.class).ConsultarMateriaPorId(estu.getId()))
+				.withRel("materias");
+		Link link2 = linkTo(methodOn(EstudianteControllerRestFul.class).buscar(id)).withSelfRel();
+		estu.add(link);
+		estu.add(link2);
+		return ResponseEntity.status(241).body(estu);
+	}
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes/buscar
 	// MMR
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes/1
