@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -35,18 +36,20 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController // servicio
 @RequestMapping(path = "/estudiantes") // se le da el nombre del servicio
+@CrossOrigin
 public class EstudianteControllerRestFul {
+
 
 	@Autowired
 	private IEstudianteService estudianteService;
 
 	@Autowired
-	private IMateriService materiService;
+	private IMateriService materiService; 
 
 	// Metodos= Capacidades
 	// GET
-
-	@GetMapping(path = "/{id}/completo", produces = "application/json")
+  
+	@GetMapping(path = "/{id}", produces = "application/json")
 	public ResponseEntity<EstudianteTO> buscar(@PathVariable Integer id) {
 		System.out.println(this.estudianteService.buscarTO(id));
 		// 240: grupo satisfactoria
@@ -67,7 +70,7 @@ public class EstudianteControllerRestFul {
 	}
 
 	// ---------------------*****************
-	@GetMapping(path = "/{id}", produces = "application/json")
+	@GetMapping(path = "/{id}/completo", produces = "application/json")
 	public ResponseEntity<EstudianteLIgeroTO> buscarLigeroTo(@PathVariable Integer id) {
 
 		EstudianteLIgeroTO estu = this.estudianteService.buscarToLigero(id);
