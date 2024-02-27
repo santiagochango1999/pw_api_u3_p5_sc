@@ -66,7 +66,7 @@ public class EstudianteControllerRestFul {
 				.withSelfRel();
 		estu.add(link);
 		estu.add(link2);
-		return ResponseEntity.status(241).body(estu);
+		return ResponseEntity.status(HttpStatus.OK).body(estu);
 	}
 
 	// ---------------------*****************
@@ -79,7 +79,7 @@ public class EstudianteControllerRestFul {
 		Link link2 = linkTo(methodOn(EstudianteControllerRestFul.class).buscar(id)).withSelfRel();
 		estu.add(link);
 		estu.add(link2);
-		return ResponseEntity.status(241).body(estu);
+		return ResponseEntity.status(HttpStatus.OK).body(estu);
 	}
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes/buscar
 	// MMR
@@ -92,7 +92,7 @@ public class EstudianteControllerRestFul {
 		HttpHeaders cabeceras = new HttpHeaders();
 		cabeceras.add("mensaje 242", "lista consultada de manera satisfactoria");
 
-		return new ResponseEntity<>(lista, cabeceras, 242);
+		return new ResponseEntity<>(lista, cabeceras, HttpStatus.OK);
 	}
 
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes/buscartodos?genero=Masculina

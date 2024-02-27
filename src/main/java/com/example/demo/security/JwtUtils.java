@@ -11,17 +11,18 @@ public class JwtUtils {
 
 	public boolean validateJwt(String authToken) {
 		try {
-			Jwts.parser().setSigningKey("MIGeMA0GCSqGSIb3DQEBAQUAA4GMADCBiAKBgFwZL3qE6ppMKtBtyRFuTQObdXN1hIa2XWKclNd5tzbEWL55GuJJYRx6pQcuZh/c2p+NNZr1ueorfpKdWc3nMK78VFwbhrXopJHSveh2yZ2nL8AuqJ6vzq0hP9M7VZP4Rc33fBw8BRMFxbWAfUJRgjJT/R0rZISaIjVMGj6hadlAgMBAAE=").parseClaimsJws(authToken);
+			Jwts.parser().setSigningKey("semillakjdajodajiqwjdkoqdmaskldmaiodmiocmio12j39812jiodajd89wjdi1moadkd9w9kd1kddakdmakodjid1j90d1jalkdlkzp1k010938fldo9k1").parseClaimsJws(authToken);
+			
 			return true;
 		} catch (Exception e) {
 			// TODO: handle exception
-			LOG.error("ERRRRRRRRRRORRRR	", e);
+			LOG.error("ERRRRRRRRRRORRRR	2", e);
 		}
 		return false;
 
 	}
 	
 	public String getUserNameFromjwtToken(String token) {
-		return Jwts.parser().setSigningKey("MIGeMA0GCSqGSIb3DQEBAQUAA4GMADCBiAKBgFwZL3qE6ppMKtBtyRFuTQObdXN1hIa2XWKclNd5tzbEWL55GuJJYRx6pQcuZh/c2p+NNZr1ueorfpKdWc3nMK78VFwbhrXopJHSveh2yZ2nL8AuqJ6vzq0hP9M7VZP4Rc33fBw8BRMFxbWAfUJRgjJT/R0rZISaIjVMGj6hadlAgMBAAE=").parseClaimsJws(token).getBody().getSubject();
+		return Jwts.parser().setSigningKey("semillakjdajodajiqwjdkoqdmaskldmaiodmiocmio12j39812jiodajd89wjdi1moadkd9w9kd1kddakdmakodjid1j90d1jalkdlkzp1k010938fldo9k1").parseClaimsJws(token).getBody().getSubject();
 	}
 }

@@ -30,7 +30,9 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 		// validacion del token para generar una autenticacion
 		try {
 			String jwt = this.parseJwt(request);
+			
 			if (jwt != null && this.jwtUtils.validateJwt(jwt)) {
+				System.out.println("hola");
 				String userName = this.jwtUtils.getUserNameFromjwtToken(jwt);
 
 				// Autenticacion
@@ -42,7 +44,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
-			LOG.error("ERRRRRRRRRRORRRR	", e);
+			LOG.error("ERRRRRRRRRRORRRR	1", e);
 		}
 		filterChain.doFilter(request, response);
 	}
